@@ -6,6 +6,14 @@ import (
 	"github.com/mwelwankuta/goweb/components"
 )
 
+func (h *Home) OnMount(ctx app.Context) {
+	response, err := api.GetPokimon()
+	h.Error = err
+	h.Data = response
+
+	h.Update()
+}
+
 type Home struct {
 	app.Compo
 	Loading bool
@@ -28,12 +36,4 @@ func (h *Home) Render() app.UI {
 			}),
 		),
 	)
-}
-
-func (h *Home) OnMount(ctx app.Context) {
-	response, err := api.GetPokimon()
-	h.Error = err
-	h.Data = response
-
-	h.Update()
 }
